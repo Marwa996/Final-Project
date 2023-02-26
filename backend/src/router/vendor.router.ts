@@ -1,18 +1,25 @@
 import { productModel } from './../models/vendor-products';
 import { Router } from "express";
 import expressAsyncHandler from "express-async-handler";
-const router = Router();
+//expressAsyncHandler: middleware for handling exceptions inside of async express routes
+    //no need to write try, catch blocks with it
 
-// router.get("/seed",expressAsyncHandler(
-//     async (req,res)=>{
-//         const productsCounts = await productModel.countDocuments();
-//         if(productsCounts>0){
-//             return;
-//         }
-        
-//         await productModel.create(sample_products);
-//     }
-// ))
+
+/////////////////////////////////////////////////////////////////////////////////
+const multer = require ('multer')
+const storage = multer.diskStorage({
+    destination:(req: any,file: any,cb: (arg0: null, arg1: string) => void)=>{
+        cb(null,'../images')
+    },
+    filename: (req: any, file: { originalname: any; }, cb: (arg0: null, arg1: any) => void)=>{
+        console.log(file)
+        cb(null,Date.now())
+    }
+})
+const upload = multer({storage:storage})
+///////////////////////////////////////////////////////////////////////////////////
+
+const router = Router();
 
 router.get("/products",expressAsyncHandler(
     async (req,res)=>{
@@ -21,17 +28,9 @@ router.get("/products",expressAsyncHandler(
     }
 ))
 
-router.get("/add",expressAsyncHandler(
-    async (req,res)=>{
-        const products = await productModel.find();
-        res.send(products);
-    }
-))
-
-router.post("/products/add",expressAsyncHandler(
+router.post("/products/add", upload.single("image"),expressAsyncHandler(
     
     async (req,res)=>{
-    // console.log(req);
         let product = new productModel({
             title: req.body.Title_Product,
             images:req.body.image_Product,
@@ -43,13 +42,8 @@ router.post("/products/add",expressAsyncHandler(
             subcategory:req.body.Sub_Category,
             colors:req.body.Color_Product,
             overview:req.body.Description
-        })
-        try{
-            product = await product.save();
-            console.log("saved");
-        }catch(e){
-            console.log("error")
-        }
+        });
+        product = await product.save();
     }
 ))
 

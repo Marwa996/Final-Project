@@ -12,7 +12,8 @@ export const product_schema = new Schema(
         category: {type: String, required:true},
         subcategory: {type: String, required:true},
         colors: {type: [String], required:true},
-        rate: {type: Number},
+        //setting the value of rate to be 1
+        rate: {type: Number, default:1},
         overview: {type: String, required:true}
     },{
         toJSON:{
@@ -21,6 +22,7 @@ export const product_schema = new Schema(
         toObject:{
             virtuals:true
         },
+        //saving the time of creation or editing
         timestamps:true
     }
 )

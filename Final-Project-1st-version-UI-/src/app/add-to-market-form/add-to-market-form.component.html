@@ -1,6 +1,6 @@
 <div class="add-product-form  mb-5 mt-5" style="width: 80%;">
 
-     <form (ngSubmit)="submitFormadd(addprodectform)" [formGroup]="addprodectform">
+     <form (ngSubmit)="submitFormadd(addprodectform)" [formGroup]="addprodectform" enctype="multipart/form-data">
 
           <!-- Title Product -->
           <div class="pt-2  m-3">
@@ -177,7 +177,7 @@
           <div class="m-3">
                <label for="imageProduct" class="form-label">image Product</label>
                <input formControlName="image_Product" class="form-control form-control-sm" id="imageProduct"
-                    type="file">
+                    type="file" multiple>
 
                <div *ngIf="addprodectform.get('image_Product')?.errors && addprodectform.get('image_Product')?.touched"
                     class="alert alert-danger">

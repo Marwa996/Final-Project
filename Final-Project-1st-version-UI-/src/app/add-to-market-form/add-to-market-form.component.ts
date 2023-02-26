@@ -1,5 +1,5 @@
 import { VendorProductsService } from './../Services/vendor-products.service';
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Products } from '../shared/models/products';
 import { Observable } from 'rxjs';
@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./add-to-market-form.component.css']
 })
 export class AddToMarketFormComponent {
+
   products: Products[]=[];
   constructor(private service:VendorProductsService){}
 
@@ -67,10 +68,11 @@ export class AddToMarketFormComponent {
     // console.log(addprodectform.get('Description')?.getError('minLength'))
     // console.log(addprodectform.get('Description')?.errors)
 
+    
+
+    //add product api
     let productsObservable: Observable<Products[]>
-
     productsObservable=this.service.addProduct(addprodectform.value)
-
     productsObservable.subscribe((serverProducts)=>{
       this.products = serverProducts;
     })
