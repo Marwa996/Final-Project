@@ -1,0 +1,18 @@
+
+.card-header{
+  background-color: white;
+  border-bottom: 0 none;
+}
+.card-header img{
+  width:50px
+}
+.card-footer{
+  background-color:#FBF5EC;
+  border-top: 0 none;
+}
+.card-body img{
+  width:170px
+}
+body {
+  background-color: #fbfbfb;
+}
