@@ -1,6 +1,12 @@
-import { productModel } from '../models/vendor-products';
-import { Router } from "express";
-import expressAsyncHandler from "express-async-handler";
+// import { productModel } from '../models/vendor-products';
+
+const express = require('express');
+const Router = express.Router;
+const asyncHandler = require('express-async-handler');
+const expressAsyncHandler = asyncHandler.expressAsyncHandler
+const productModel = require('../models/vendor-products')
+// import { Router } from "express";
+// import expressAsyncHandler from "express-async-handler";
 //expressAsyncHandler: middleware for handling exceptions inside of async express routes
     //no need to write try, catch blocks with it
 
@@ -21,16 +27,13 @@ const upload = multer({storage:storage})
 
 const router = Router();
 
-router.get("/products",expressAsyncHandler(
-    async (req,res)=>{
+router.get("/products", async (req,res)=>{
         const products = await productModel.find();
         res.send(products);
     }
-))
+);
 
-router.post("/products/add", upload.single("image"),expressAsyncHandler(
-    
-    async (req,res)=>{
+router.post("/products/add", upload.single("image"), async (req,res)=>{
         let product = new productModel({
             title: req.body.Title_Product,
             images:req.body.image_Product,
@@ -42,9 +45,14 @@ router.post("/products/add", upload.single("image"),expressAsyncHandler(
             subcategory:req.body.Sub_Category,
             colors:req.body.Color_Product,
             overview:req.body.Description
-        });
-        product = await product.save();
+        })
+        try{
+            product = await product.save();
+        }catch(e){
+            console.log(e)
+        }
+        
     }
-))
+)
 
-export default router;
+module.exports=router;

@@ -1,10 +1,10 @@
-import mongoose from "mongoose";
-import { connect, ConnectOptions } from "mongoose";
+const mongoose = require("mongoose");
+
 
 mongoose.set('strictQuery', false);
 
-export const dbConnect = () =>{
-    connect(process.env.MONGO_URL, {
+const dbConnect = () =>{
+    mongoose.connect(process.env.MONGO_URL, {
         // useuNewUrlParser: true,
         useUnifiedTopology: true
     }).then(
@@ -12,3 +12,6 @@ export const dbConnect = () =>{
         (error)=> console.log(error)
     )
 }
+
+
+module.exports= dbConnect;
