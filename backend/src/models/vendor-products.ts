@@ -12,7 +12,7 @@ export const product_schema = new Schema(
         category: {type: String, required:true},
         subcategory: {type: String, required:true},
         colors: {type: [String], required:true},
-        rate: {type: Number, required:true, value:1},
+        rate: {type: Number},
         overview: {type: String, required:true}
     },{
         toJSON:{

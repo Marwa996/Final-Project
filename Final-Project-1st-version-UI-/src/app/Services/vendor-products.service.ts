@@ -16,9 +16,9 @@ export class VendorProductsService {
     return this.http.get<Products[]>(VENDOR_PRODUCTS_URL);
   }
 
-  addProduct(): Observable<Products[]> {
+  addProduct(product:object): Observable<Products[]> {
     console.log(Products)
-    return this.http.get<Products[]>(VENDOR_ADD_PRODUCT_URL);
+    return this.http.post<Products[]>(VENDOR_ADD_PRODUCT_URL,product);
   }
 
   editProduct(): Observable<Products[]> {

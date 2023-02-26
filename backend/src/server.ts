@@ -14,6 +14,10 @@ const app = express();
 //backend on localHost 5000
 //that's why we used cors
 
+var bodyParser = require('body-parser')
+app.use(express.urlencoded({extended:false}));
+app.use(bodyParser.json());
+
 
 app.use(cors({
     credentials:true,

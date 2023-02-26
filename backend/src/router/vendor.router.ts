@@ -21,5 +21,36 @@ router.get("/products",expressAsyncHandler(
     }
 ))
 
+router.get("/add",expressAsyncHandler(
+    async (req,res)=>{
+        const products = await productModel.find();
+        res.send(products);
+    }
+))
+
+router.post("/products/add",expressAsyncHandler(
+    
+    async (req,res)=>{
+    // console.log(req);
+        let product = new productModel({
+            title: req.body.Title_Product,
+            images:req.body.image_Product,
+            quantity:req.body.avialble_Quntity,
+            price:req.body.Price,
+            dimensions:req.body.DimensionsW,
+            matrial:req.body.Material,
+            category:req.body.Main_Category,
+            subcategory:req.body.Sub_Category,
+            colors:req.body.Color_Product,
+            overview:req.body.Description
+        })
+        try{
+            product = await product.save();
+            console.log("saved");
+        }catch(e){
+            console.log("error")
+        }
+    }
+))
 
 export default router;

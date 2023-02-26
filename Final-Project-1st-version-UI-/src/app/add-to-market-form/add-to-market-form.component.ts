@@ -1,11 +1,17 @@
+import { VendorProductsService } from './../Services/vendor-products.service';
 import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Products } from '../shared/models/products';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-add-to-market-form',
   templateUrl: './add-to-market-form.component.html',
   styleUrls: ['./add-to-market-form.component.css']
 })
 export class AddToMarketFormComponent {
+  products: Products[]=[];
+  constructor(private service:VendorProductsService){}
+
   hi_iam_option(addprodectform: FormGroup) {
     console.log("hi_iam_option");
     console.log(addprodectform.value.Main_Category);
@@ -56,10 +62,19 @@ export class AddToMarketFormComponent {
   leter: string ="Lorem ipsum, dolor sit amet consectetur adipisicing elit.Lorem ipsum, dolor sit amet consectetur adipisicing elit. "
 
   submitFormadd(addprodectform: FormGroup) {
-    console.log(addprodectform.get("Title_Product")?.getError('required'));
-    console.log(this.leter.length);
-    console.log(addprodectform.get('Description')?.getError('minLength'))
-    console.log(addprodectform.get('Description')?.errors)
+    // console.log(addprodectform.get("Title_Product")?.getError('required'));
+    // console.log(this.leter.length);
+    // console.log(addprodectform.get('Description')?.getError('minLength'))
+    // console.log(addprodectform.get('Description')?.errors)
+
+    let productsObservable: Observable<Products[]>
+
+    productsObservable=this.service.addProduct(addprodectform.value)
+
+    productsObservable.subscribe((serverProducts)=>{
+      this.products = serverProducts;
+    })
+    
   }
 
   addColor(){
