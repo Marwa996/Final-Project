@@ -1,4 +1,4 @@
-import { productModel } from './../models/vendor-products';
+import { productModel } from '../models/vendor-products';
 import { Router } from "express";
 import expressAsyncHandler from "express-async-handler";
 //expressAsyncHandler: middleware for handling exceptions inside of async express routes
@@ -8,10 +8,10 @@ import expressAsyncHandler from "express-async-handler";
 /////////////////////////////////////////////////////////////////////////////////
 const multer = require ('multer')
 const storage = multer.diskStorage({
-    destination:(req: any,file: any,cb: (arg0: null, arg1: string) => void)=>{
+    destination:(req,file,cb)=>{
         cb(null,'../images')
     },
-    filename: (req: any, file: { originalname: any; }, cb: (arg0: null, arg1: any) => void)=>{
+    filename: (req, file, cb)=>{
         console.log(file)
         cb(null,Date.now())
     }
